@@ -1,0 +1,30 @@
+Game Flow:
+----------------------
+    - Select "New Game"
+    - Select Difficulty
+    - *GameBoard Initializes*
+        - Take Difficulty Setting
+        - Randomize Operations (Following settings may be changed)
+            - all + for Easy
+            - + and - for Medium
+            - + and - and * for Hard
+            - + and - and * and / for Hardest
+        - Shuffle Numbers
+        - Generate Answers
+        - Place Components on GameBoard
+        - Start Timer
+    - User Fills in Solution
+    - User Submits Solution
+    - GameBoard controller checks solution
+        - If correct:
+            - Stop Timer
+            - Move to Confirmation Screen
+            - Check High Scores
+                - If High Score:
+                    - Provide Option to Enter User's Name
+                - Else:
+                    - No Name Input
+            - User Clicks "Home" or "New Game" to end the game
+        - Else:
+            - Highlight Incorrect Rows
+
