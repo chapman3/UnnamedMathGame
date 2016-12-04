@@ -7,9 +7,9 @@ The Unnamed Math Game starts out by filling out a 3x3 grid with the numbers 1-9.
 When evaluated with the given operations, the solution set should be validated for a solved gameboard. 
 A sample board is as follows:
 
-  1 + 2 + 3 = 6
+  | 1| + | 2| + | 3| = |6|
 
-  \+     +     +  
+  | +|   | +|   | +|  
 
   4 + 5 + 6 = 15
 
