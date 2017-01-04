@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NCalc;
 
 public enum Difficulty {
 	easy = 1,
@@ -90,7 +91,11 @@ public class GameBoardController : MonoBehaviour {
 		//Locate which operands to use based on the row
 		int operandsStartingIndex = RowIndex * GAMEBOARD_WIDTH + RowIndex;
 
-		Debug.Log (operandsStartingIndex);
+		Expression ex = new Expression ("2 * 3 + (5*2)");
+
+
+
+		Debug.Log (ex.Evaluate ());
 
 		return 0;
 	}
