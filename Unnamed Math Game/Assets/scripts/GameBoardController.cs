@@ -16,6 +16,11 @@ public class GameBoardController : MonoBehaviour {
 	public int maxValue;
 	public int minValue;
 	public Difficulty difficulty;
+	public enum row {
+		FirstRow = 0,
+		SecondRow = 1,
+		ThirdRow = 2
+	}
 
 	private int[,] gameboardNums;
 	private char[] operands;
@@ -23,6 +28,9 @@ public class GameBoardController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		RandomizeGameboard ();
+		GenerateRowAnswer ((int) row.FirstRow);
+		GenerateRowAnswer ((int) row.SecondRow);
+		GenerateRowAnswer ((int) row.ThirdRow);
 	}
 	
 	// Update is called once per frame
@@ -70,8 +78,20 @@ public class GameBoardController : MonoBehaviour {
 				operands [i] = '/';
 				break;
 			}
-
-			Debug.Log (operands [i]);
 		}
+	}
+
+	/// <summary>
+	/// Generates the answer for a single row
+	/// This currently does not work if we change row count
+	/// </summary>
+	/// <returns>The row answer.</returns>
+	public double GenerateRowAnswer(int RowIndex) {
+		//Locate which operands to use based on the row
+		int operandsStartingIndex = RowIndex * GAMEBOARD_WIDTH + RowIndex;
+
+		Debug.Log (operandsStartingIndex);
+
+		return 0;
 	}
 }
