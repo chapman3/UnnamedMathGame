@@ -73,7 +73,7 @@ public class GameBoardController : MonoBehaviour {
 				operands [i] = '-';
 				break;
 			case 3:
-				operands [i] = 'x';
+				operands [i] = '*';
 				break;
 			case 4:
 				operands [i] = '/';
@@ -88,15 +88,24 @@ public class GameBoardController : MonoBehaviour {
 	/// </summary>
 	/// <returns>The row answer.</returns>
 	public double GenerateRowAnswer(int RowIndex) {
+		double answer;
+
 		//Locate which operands to use based on the row
 		int operandsStartingIndex = RowIndex * GAMEBOARD_WIDTH + RowIndex;
 
-		Expression ex = new Expression ("2 * 3 + (5*2)");
+		//Generates the expression string for the row
+		string expressionString = string.Format("{0}{1}{2}{3}{4}", 
+			                    gameboardNums [RowIndex, 0],
+			                    operands [operandsStartingIndex],
+			                    gameboardNums [RowIndex, 1],
+			                    operands [operandsStartingIndex + 1],
+			                    gameboardNums [RowIndex, 2]);
 
+		//Expression object for the string
+		Expression expression = new Expression (expressionString);
 
+		answer = System.Convert.ToDouble(expression.Evaluate ());
 
-		Debug.Log (ex.Evaluate ());
-
-		return 0;
+		return answer;
 	}
 }
