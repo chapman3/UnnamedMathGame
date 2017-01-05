@@ -17,6 +17,7 @@ public class GameBoardController : MonoBehaviour {
 	public int maxValue;
 	public int minValue;
 	public Difficulty difficulty;
+
 	public enum row {
 		FirstRow = 0,
 		SecondRow = 1,
@@ -44,11 +45,6 @@ public class GameBoardController : MonoBehaviour {
 		GenerateColumnAnswer ((int) column.FirstColumn);
 		GenerateColumnAnswer ((int) column.SecondColumn);
 		GenerateColumnAnswer ((int) column.ThirdColumn);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	void RandomizeGameboard() {
@@ -117,6 +113,7 @@ public class GameBoardController : MonoBehaviour {
 		//Expression object for the string
 		Expression expression = new Expression (expressionString);
 
+		//final answer
 		answer = System.Convert.ToDouble(expression.Evaluate ());
 
 		return answer;
@@ -132,7 +129,7 @@ public class GameBoardController : MonoBehaviour {
 		double answer;
 
 		//Locate which operands to use based on the column
-		int operandsStartingIndex = ColumnIndex + 2; //todo: write this
+		int operandsStartingIndex = ColumnIndex + (GAMEBOARD_WIDTH - 1);
 
 		//Generates the expression string for the column
 		string expressionString = string.Format ("{0}{1}{2}{3}{4}",
@@ -143,8 +140,10 @@ public class GameBoardController : MonoBehaviour {
 			                          gameboardNums [2, ColumnIndex]	
 		                          );
 
+		//Expression object for the string
 		Expression expression = new Expression (expressionString);
 
+		//final answer
 		answer = System.Convert.ToDouble (expression.Evaluate ());
 
 		return answer;
