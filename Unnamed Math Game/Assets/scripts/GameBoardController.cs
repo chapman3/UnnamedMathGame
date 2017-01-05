@@ -18,7 +18,7 @@ public class GameBoardController : MonoBehaviour {
 	public int maxValue;
 	public int minValue;
 	public Difficulty difficulty;
-	public GameObject answers;
+	public GameObject answersObj, operandsObj;
 
 	public enum row {
 		FirstRow = 0,
@@ -38,6 +38,7 @@ public class GameBoardController : MonoBehaviour {
 	void Start () {
 		RandomizeGameboard ();
 		setAnswers ();
+		setOperands ();
 	}
 
 	void RandomizeGameboard() {
@@ -50,20 +51,33 @@ public class GameBoardController : MonoBehaviour {
 	/// </summary>
 	void setAnswers() {
 		//Set all the row answers
-		answers.transform.GetChild (0).gameObject.GetComponent <Text>().text =
+		answersObj.transform.GetChild (0).gameObject.GetComponent <Text>().text =
 			GenerateRowAnswer ((int) row.FirstRow).ToString ();
-		answers.transform.GetChild (1).gameObject.GetComponent<Text> ().text = 
+		answersObj.transform.GetChild (1).gameObject.GetComponent<Text> ().text = 
 			GenerateRowAnswer ((int)row.SecondRow).ToString ();
-		answers.transform.GetChild (2).gameObject.GetComponent<Text> ().text = 
+		answersObj.transform.GetChild (2).gameObject.GetComponent<Text> ().text = 
 			GenerateRowAnswer ((int)row.ThirdRow).ToString ();
 
 		//Set all the column answers
-		answers.transform.GetChild (3).gameObject.GetComponent<Text> ().text = 
+		answersObj.transform.GetChild (3).gameObject.GetComponent<Text> ().text = 
 			GenerateColumnAnswer ((int)column.FirstColumn).ToString ();
-		answers.transform.GetChild (4).gameObject.GetComponent<Text> ().text = 
+		answersObj.transform.GetChild (4).gameObject.GetComponent<Text> ().text = 
 			GenerateColumnAnswer ((int)column.SecondColumn).ToString ();
-		answers.transform.GetChild (5).gameObject.GetComponent<Text> ().text = 
+		answersObj.transform.GetChild (5).gameObject.GetComponent<Text> ().text = 
 			GenerateColumnAnswer ((int)column.ThirdColumn).ToString ();
+	}
+
+	/// <summary>
+	/// Sets the operands in the UI
+	/// </summary>
+	void setOperands() {
+		int operandsLength = operandsObj.transform.childCount;
+
+		for(int i = 0; i < operandsLength; i++) {
+			Text operandText = operandsObj.transform.GetChild (i).GetComponent<Text>();
+			operandText.text = operands [i].ToString ();
+			Debug.Log (operands[i]);
+		}
 	}
 
 	/// <summary>
