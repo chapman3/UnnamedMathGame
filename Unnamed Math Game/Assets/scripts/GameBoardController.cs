@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using NCalc;
 
 public enum Difficulty {
@@ -17,6 +18,7 @@ public class GameBoardController : MonoBehaviour {
 	public int maxValue;
 	public int minValue;
 	public Difficulty difficulty;
+	public GameObject answers;
 
 	public enum row {
 		FirstRow = 0,
@@ -35,21 +37,33 @@ public class GameBoardController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		RandomizeGameboard ();
-
-		//These are just tests for now until we have a ui
-		//We might also consider making an array of answers
-		//Not sure yet but they work is the good news
-		GenerateRowAnswer ((int) row.FirstRow);
-		GenerateRowAnswer ((int) row.SecondRow);
-		GenerateRowAnswer ((int) row.ThirdRow);
-		GenerateColumnAnswer ((int) column.FirstColumn);
-		GenerateColumnAnswer ((int) column.SecondColumn);
-		GenerateColumnAnswer ((int) column.ThirdColumn);
+		setAnswers ();
 	}
 
 	void RandomizeGameboard() {
 		RandomizeNumbers ();
 		RandomizeOperands ();
+	}
+
+	/// <summary>
+	/// Sets the answers in the UI
+	/// </summary>
+	void setAnswers() {
+		//Set all the row answers
+		answers.transform.GetChild (0).gameObject.GetComponent <Text>().text =
+			GenerateRowAnswer ((int) row.FirstRow).ToString ();
+		answers.transform.GetChild (1).gameObject.GetComponent<Text> ().text = 
+			GenerateRowAnswer ((int)row.SecondRow).ToString ();
+		answers.transform.GetChild (2).gameObject.GetComponent<Text> ().text = 
+			GenerateRowAnswer ((int)row.ThirdRow).ToString ();
+
+		//Set all the column answers
+		answers.transform.GetChild (3).gameObject.GetComponent<Text> ().text = 
+			GenerateColumnAnswer ((int)column.FirstColumn).ToString ();
+		answers.transform.GetChild (4).gameObject.GetComponent<Text> ().text = 
+			GenerateColumnAnswer ((int)column.SecondColumn).ToString ();
+		answers.transform.GetChild (5).gameObject.GetComponent<Text> ().text = 
+			GenerateColumnAnswer ((int)column.ThirdColumn).ToString ();
 	}
 
 	/// <summary>
