@@ -4591,11 +4591,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63ee2e815fccf419aa8be3de0067c1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 1
+  difficulty: 4
   answersObj: {fileID: 2077055244}
   operandsObj: {fileID: 894869565}
   inputFieldsObj: {fileID: 1818002462}
-  freeAnswers: 0
+  freeAnswers: 2
 --- !u!4 &1927786982
 Transform:
   m_ObjectHideFlags: 0
