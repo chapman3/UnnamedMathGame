@@ -4595,8 +4595,7 @@ MonoBehaviour:
   answersObj: {fileID: 2077055244}
   operandsObj: {fileID: 894869565}
   inputFieldsObj: {fileID: 1818002462}
-  freeAnswers: 2
-  blankBoard: 0
+  freeAnswers: 0
 --- !u!4 &1927786982
 Transform:
   m_ObjectHideFlags: 0

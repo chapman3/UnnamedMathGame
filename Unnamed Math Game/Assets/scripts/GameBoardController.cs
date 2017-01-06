@@ -40,6 +40,8 @@ public class GameBoardController : MonoBehaviour {
 		setAnswers ();
 		setOperands ();
 		GenerateHints ();
+		DumpAnswers ();
+		DumpOperands ();
 	}
 
 	void RandomizeGameboard() {
@@ -157,6 +159,15 @@ public class GameBoardController : MonoBehaviour {
 	}
 
 	/// <summary>
+	/// Dumps the operands into the console for debugging
+	/// </summary>
+	void DumpOperands() {
+		for(int i = 0; i < operands.Length; i++) {
+			Debug.Log (operands [i]);
+		}
+	}
+
+	/// <summary>
 	/// Generates the answer for a single row
 	/// This currently does not work if we change row count
 	/// </summary>
@@ -166,7 +177,8 @@ public class GameBoardController : MonoBehaviour {
 		double answer;
 
 		//Locate which operands to use based on the row
-		int operandsStartingIndex = RowIndex * GAMEBOARD_WIDTH + RowIndex;
+		int operandsStartingIndex = RowIndex * 5;
+		Debug.Log (operandsStartingIndex.ToString ());
 
 		//Generates the expression string for the row
 		string expressionString = string.Format("{0}{1}{2}{3}{4}", 
@@ -175,6 +187,7 @@ public class GameBoardController : MonoBehaviour {
 			                    gameboardNums [RowIndex, 1],
 			                    operands [operandsStartingIndex + 1],
 			                    gameboardNums [RowIndex, 2]);
+
 
 		//Expression object for the string
 		Expression expression = new Expression (expressionString);
@@ -195,14 +208,14 @@ public class GameBoardController : MonoBehaviour {
 		double answer;
 
 		//Locate which operands to use based on the column
-		int operandsStartingIndex = ColumnIndex + (GAMEBOARD_WIDTH - 1);
+		int operandsStartingIndex = ColumnIndex + 2;
 
 		//Generates the expression string for the column
 		string expressionString = string.Format ("{0}{1}{2}{3}{4}",
 			                          gameboardNums [0, ColumnIndex],
 			                          operands [operandsStartingIndex],
 			                          gameboardNums [1, ColumnIndex],
-			                          operands [operandsStartingIndex + GAMEBOARD_WIDTH],
+			                          operands [operandsStartingIndex + 5],
 			                          gameboardNums [2, ColumnIndex]	
 		                          );
 
@@ -211,6 +224,8 @@ public class GameBoardController : MonoBehaviour {
 
 		//final answer
 		answer = System.Convert.ToDouble (expression.Evaluate ());
+
+		Debug.Log (string.Format ("{0} = {1}", expressionString, answer));
 
 		return answer;
 	}
