@@ -76,7 +76,6 @@ public class GameBoardController : MonoBehaviour {
 		for(int i = 0; i < operandsLength; i++) {
 			Text operandText = operandsObj.transform.GetChild (i).GetComponent<Text>();
 			operandText.text = operands [i].ToString ();
-			Debug.Log (operands[i]);
 		}
 	}
 
@@ -85,9 +84,13 @@ public class GameBoardController : MonoBehaviour {
 	/// </summary>
 	void RandomizeNumbers() {
 		gameboardNums = new int[GAMEBOARD_HEIGHT, GAMEBOARD_WIDTH];
+		List<int> possibleNumbers = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 		for(int i = 0; i < GAMEBOARD_HEIGHT; i++) {
 			for(int k = 0; k < GAMEBOARD_WIDTH; k++) {
-				gameboardNums [i, k] = (int) Random.Range (minValue, maxValue + 1);
+				int position = Random.Range (0, possibleNumbers.Count);
+				int randomNum = possibleNumbers [position];
+				possibleNumbers.RemoveAt (position);
+				gameboardNums[i, k] = randomNum;
 			}
 		}
 	}
