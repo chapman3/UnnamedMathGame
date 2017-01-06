@@ -17,7 +17,8 @@ public class GameBoardController : MonoBehaviour {
 
 	public Difficulty difficulty;
 	public GameObject answersObj, operandsObj, inputFieldsObj;
-	public bool blankBoard;
+	[Range(0,2)]
+	public int freeAnswers;
 
 	public enum row {
 		FirstRow = 0,
@@ -38,10 +39,7 @@ public class GameBoardController : MonoBehaviour {
 		RandomizeGameboard ();
 		setAnswers ();
 		setOperands ();
-
-		if(!blankBoard) {
-			GenerateHint ();
-		}
+		GenerateHints ();
 	}
 
 	void RandomizeGameboard() {
@@ -125,16 +123,26 @@ public class GameBoardController : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Gives the user one correct answer on the board
+	/// Gives the user free answers based on the setting
 	/// </summary>
-	void GenerateHint() {
-		int row = Random.Range (0, 3);
-		int column = Random.Range (0, 3);
-		int answerObjPosition = row * 3 + column;
+	void GenerateHints() {
+		for (int i = 0; i < freeAnswers; i++) {
+			bool blankTile = true;
 
-		InputField answerTile = inputFieldsObj.transform.GetChild(answerObjPosition).GetComponent<InputField>();
-		answerTile.text = gameboardNums [row, column].ToString ();
-		answerTile.enabled = false;
+			while (blankTile) {
+				int row = Random.Range (0, 3);
+				int column = Random.Range (0, 3);
+				int answerObjPosition = row * 3 + column;
+
+				InputField answerTile = inputFieldsObj.transform.GetChild (answerObjPosition).GetComponent<InputField> ();
+
+				if (answerTile.text == string.Empty) {
+					answerTile.text = gameboardNums [row, column].ToString ();
+					answerTile.enabled = false;
+					blankTile = false;
+				}
+			}
+		}
 	}
 
 	/// <summary>
