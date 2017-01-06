@@ -15,10 +15,9 @@ public class GameBoardController : MonoBehaviour {
 	const int GAMEBOARD_HEIGHT = 3;
 	const int GAMEBOARD_WIDTH = 3;
 
-	public int maxValue;
-	public int minValue;
 	public Difficulty difficulty;
-	public GameObject answersObj, operandsObj;
+	public GameObject answersObj, operandsObj, inputFieldsObj;
+	public bool blankBoard;
 
 	public enum row {
 		FirstRow = 0,
@@ -39,6 +38,10 @@ public class GameBoardController : MonoBehaviour {
 		RandomizeGameboard ();
 		setAnswers ();
 		setOperands ();
+
+		if(!blankBoard) {
+			GenerateHint ();
+		}
 	}
 
 	void RandomizeGameboard() {
@@ -117,6 +120,30 @@ public class GameBoardController : MonoBehaviour {
 			case 4:
 				operands [i] = '/';
 				break;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Gives the user one correct answer on the board
+	/// </summary>
+	void GenerateHint() {
+		int row = Random.Range (0, 3);
+		int column = Random.Range (0, 3);
+		int answerObjPosition = row * 3 + column;
+
+		InputField answerTile = inputFieldsObj.transform.GetChild(answerObjPosition).GetComponent<InputField>();
+		answerTile.text = gameboardNums [row, column].ToString ();
+		answerTile.enabled = false;
+	}
+
+	/// <summary>
+	/// Dumps the answers into the console for debugging
+	/// </summary>
+	void DumpAnswers() {
+		for(int i = 0; i < 3; i++) {
+			for(int k = 0; k < 3; k++) {
+				Debug.Log (string.Format ("Row {0} Column {1} Value {2}", i, k, gameboardNums [i, k]));
 			}
 		}
 	}
