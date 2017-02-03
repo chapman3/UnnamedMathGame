@@ -37,7 +37,6 @@ public class ButtonController : MonoBehaviour
                 go.GetComponent<Text>().text = scene;
                 Scene sendScene = SceneManager.GetSceneByName("GameBoard");
                 SceneManager.MoveGameObjectToScene(go, sendScene);
-                SceneManager.LoadScene("GameBoard");
             }
         }
         else
