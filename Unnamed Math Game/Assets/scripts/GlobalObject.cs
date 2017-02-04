@@ -38,6 +38,9 @@ public class GlobalObject {
         answers = GenerateAnswers();
     }
 
+    /// <summary>
+    /// Sets the difficulty setting selected
+    /// </summary>
     private void setDifficulty()
     {
         string text = GameObject.Find("DifficultyObj").GetComponent<Text>().text;
@@ -61,6 +64,11 @@ public class GlobalObject {
     }
 
     //class methods
+
+    /// <summary>
+    /// Randomizes a 2D array of numbers (1-9)
+    /// </summary>
+    /// <returns>The 2D number array</returns>
     private int[,] RandomizeNumbers()
     {
         int[,] numbers = new int[GAMEBOARD_HEIGHT, GAMEBOARD_WIDTH];
@@ -78,6 +86,10 @@ public class GlobalObject {
         return numbers;
     }
 
+    /// <summary>
+    /// Randomizes an array of operands
+    /// </summary>
+    /// <returns>The operand array</returns>
     private char[] RandomizeOperands()
     {
         int size = (GAMEBOARD_HEIGHT + GAMEBOARD_WIDTH - 2) * GAMEBOARD_WIDTH;
@@ -105,14 +117,12 @@ public class GlobalObject {
         return tempOperands;
     }
 
-    /// <summary>
-	/// Generates the answer for a single row
-	/// This currently does not work if we change row count
-	/// </summary>
-	/// <returns>The row answer.</returns>
-	/// <param name="RowIndex">The row to calculate</param> 
-    /// 
 
+    /// <summary>
+    /// Generates the answer array
+    /// </summary>
+    /// <returns>The answer array</returns>
+    /// 
     private int[] GenerateAnswers()
     {
         int[] tempAnswers = new int[6];
@@ -128,7 +138,14 @@ public class GlobalObject {
     }
 
 
-	private double GenerateRowAnswer(int RowIndex)
+    /// <summary>
+    /// Generates the answer for a single row
+    /// This currently does not work if we change row count
+    /// </summary>
+    /// <returns>The row answer.</returns>
+    /// <param name="RowIndex">The row to calculate</param> 
+    /// 
+    private double GenerateRowAnswer(int RowIndex)
     {
         double answer;
 

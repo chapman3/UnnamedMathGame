@@ -24,6 +24,11 @@ public class ButtonController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Switches the scene
+    /// </summary>
+    /// <param name="scene">The scene to be switched to or the difficulty to be passed to a GlobalObject</param> 
+    /// 
     public void SwitchToScene(string scene)
     {
         Scene thisScene = SceneManager.GetActiveScene();
