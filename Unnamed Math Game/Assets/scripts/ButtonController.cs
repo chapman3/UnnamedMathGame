@@ -49,4 +49,9 @@ public class ButtonController : MonoBehaviour
             SceneManager.LoadScene(scene);
         } 
     }
+
+	public void handleNumBar(int number){
+		var current = EventSystem.current.currentSelectedGameObject;
+		Debug.Log (current);
+	}
 }
