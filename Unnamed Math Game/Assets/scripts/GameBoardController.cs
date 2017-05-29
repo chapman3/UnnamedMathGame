@@ -20,7 +20,7 @@ public class GameBoardController : MonoBehaviour {
 	[Range(0,2)]
 	public int freeAnswers;
 
-    GlobalObject globalObject;
+    public GlobalObject gameData;
 
 	public enum row {
 		FirstRow = 0,
@@ -36,12 +36,13 @@ public class GameBoardController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         GameObject.Find("DifficultyObj").GetComponent<Text>().text = ButtonController.tempDiff;
-        globalObject = new GlobalObject();
-		setAnswers (globalObject.answers);
-		setOperands (globalObject.operands);
-		GenerateHints (globalObject.gameboardNums);
-		DumpAnswers (globalObject.gameboardNums);
-		DumpOperands (globalObject.operands);
+        gameData = GlobalControl.Instance.gameData;
+		setAnswers (gameData.answers);
+		setOperands (gameData.operands);
+		GenerateHints (gameData.gameboardNums);
+		DumpAnswers (gameData.gameboardNums);
+		DumpOperands (gameData.operands);
+		GlobalControl.Instance.gameData = gameData;
 	}
 
 	/// <summary>
@@ -49,7 +50,7 @@ public class GameBoardController : MonoBehaviour {
 	/// </summary>
 	void setAnswers(int[] answers) {
 		//Set all the row answers
-		answersObj.transform.GetChild (0).gameObject.GetComponent <Text>().text =
+		answersObj.transform.GetChild (0).gameObject.GetComponent<Text> ().text =
 			answers[0].ToString ();
 		answersObj.transform.GetChild (1).gameObject.GetComponent<Text> ().text =
             answers[1].ToString ();

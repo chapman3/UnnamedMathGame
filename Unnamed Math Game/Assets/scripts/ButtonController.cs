@@ -12,10 +12,11 @@ public class ButtonController : MonoBehaviour
     GameObject go;
     GameObject tempGo;
     public static string tempDiff;
+	public int state;
     // Use this for initialization
     void Start()
     {
-
+		state = 0;
     }
 
     // Update is called once per frame
@@ -37,10 +38,10 @@ public class ButtonController : MonoBehaviour
             if(scene != "Title")
             {
                 tempDiff = scene;
-                SceneManager.LoadScene("GameBoard");
+                SceneManager.LoadScene("NewGameBoard");
                 go = GameObject.Find("DifficultyObj");
                 go.GetComponent<Text>().text = scene;
-                Scene sendScene = SceneManager.GetSceneByName("GameBoard");
+                Scene sendScene = SceneManager.GetSceneByName("NewGameBoard");
                 SceneManager.MoveGameObjectToScene(go, sendScene);
             }
         }
@@ -51,7 +52,11 @@ public class ButtonController : MonoBehaviour
     }
 
 	public void handleNumBar(int number){
-		var current = EventSystem.current.currentSelectedGameObject;
-		Debug.Log (current);
+		GameObject current = EventSystem.current.currentSelectedGameObject;
+		Sprite tempSprite;
+		//StateHandler stateHandler = new StateHandler ();
+		tempSprite = StateHandler.changeNumBarState (current.name);
+		current.GetComponent<Image>().sprite = tempSprite;
+		Debug.Log (current.name);
 	}
 }

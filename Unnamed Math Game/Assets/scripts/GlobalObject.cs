@@ -15,6 +15,12 @@ public class GlobalObject {
         hardest = 4
     }
 
+	public enum NumberBarStates{
+		unused = 0,
+		selected = 1,
+		used = 2
+	}
+
     const int GAMEBOARD_HEIGHT = 3;
     const int GAMEBOARD_WIDTH = 3;
 
@@ -24,6 +30,8 @@ public class GlobalObject {
     public int[,] gameboardNums;
     public char[] operands;
     public int[] answers;
+	public int[] gameboardNumState;
+	public int[] numBarState;
     Difficulty difficulty;
 
     //constructor
@@ -36,6 +44,10 @@ public class GlobalObject {
         operands = RandomizeOperands();
         // generate answers
         answers = GenerateAnswers();
+		// set tile states
+		setNumBarStates();
+
+
     }
 
     /// <summary>
@@ -62,6 +74,20 @@ public class GlobalObject {
         }
         Debug.Log(difficulty);
     }
+
+	/// <summary>
+	/// Sets the number bar state values, 0 = unused by default
+	/// </summary>
+	private void setNumBarStates(){
+		numBarState = new int[9]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	}
+
+	/// <summary>
+	/// Sets the gameboard number state values, 0 = unused by default
+	/// </summary>
+	private void setGameboardNumStates(){
+		gameboardNumState = new int[9]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	}
 
     //class methods
 
