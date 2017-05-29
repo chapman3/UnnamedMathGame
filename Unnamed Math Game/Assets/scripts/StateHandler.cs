@@ -4,27 +4,83 @@ using UnityEngine;
 
 public class StateHandler : MonoBehaviour {
 
-	public static Sprite changeNumBarState(string selected){
-		Debug.Log ("Made it to changeNumBarState");
+	public static Sprite changeInputState(GameObject selected){
+		GlobalObject gameData = GlobalControl.Instance.gameData;
+		if (gameData.selected == null) {
+			return (Resources.Load<Sprite> ("sprites/Number Tiles/blank"));
+		}else{
+			switch (gameData.selected.name) {
+			case "one":
+				gameData.setUsed (gameData.selected.name);
+				gameData.selected = null;
+				return (Resources.Load<Sprite> ("sprites/Number Tiles/ones/1-blue"));
+			case "two":
+				gameData.setUsed (gameData.selected.name);
+				gameData.selected = null;
+				return (Resources.Load<Sprite> ("sprites/Number Tiles/twos/2-blue"));			
+			case "three":
+				gameData.setUsed (gameData.selected.name);
+				gameData.selected = null;
+				return (Resources.Load<Sprite> ("sprites/Number Tiles/threes/3-blue"));
+			case "four":
+				gameData.setUsed (gameData.selected.name);
+				gameData.selected = null;
+				return (Resources.Load<Sprite> ("sprites/Number Tiles/fours/4-blue"));
+			case "five":
+				gameData.setUsed (gameData.selected.name);
+				gameData.selected = null;
+				return (Resources.Load<Sprite> ("sprites/Number Tiles/fives/5-blue"));
+			case "six":
+				gameData.setUsed (gameData.selected.name);
+				gameData.selected = null;
+				return (Resources.Load<Sprite> ("sprites/Number Tiles/sixes/6-blue"));
+			case "seven":
+				gameData.setUsed (gameData.selected.name);
+				gameData.selected = null;
+				return (Resources.Load<Sprite> ("sprites/Number Tiles/sevens/7-blue"));
+			case "eight":
+				gameData.setUsed (gameData.selected.name);
+				gameData.selected = null;
+				return (Resources.Load<Sprite> ("sprites/Number Tiles/eights/8-blue"));
+			case "nine":
+				gameData.setUsed (gameData.selected.name);
+				gameData.selected = null;
+				return (Resources.Load<Sprite> ("sprites/Number Tiles/nines/9-blue"));
+			}
+		}
+		GlobalControl.Instance.gameData = gameData;
+		return (Resources.Load<Sprite> ("sprites/Number Tiles/blank"));
+	}
+
+	public static Sprite changeNumBarState(GameObject selected){
 		return loadSprite (selected);
 	}
 
-	private static Sprite loadSprite(string selected){
+	public static Sprite loadSprite(GameObject selected){
 		Sprite tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/blank");
 		GlobalObject gameData = GlobalControl.Instance.gameData;
 		int state;
-		switch (selected) {
+		switch (selected.name) {
+		//States:
+		//0 = unselected
+		//1 = selected
+		//2 = used
 		case "one":
 			state = gameData.numBarState [0];
 			if (state == 0) {
 				gameData.numBarState [0] = 1;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/ones/1-teal");
+				if (gameData.selected != null) {
+					gameData.revertSelected();
+				}
+				gameData.selected = selected;
 			} else if (state == 1) {
-				gameData.numBarState [0] = 2;
-				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/ones/1-red");
-			} else if (state == 2) {
+				gameData.selected = null;
 				gameData.numBarState [0] = 0;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/ones/1-blue");
+			} else if (state == 2) {
+				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/ones/1-red");
+				Debug.Log ("one is used");
 			}
 			break;
 		case "two":
@@ -32,12 +88,17 @@ public class StateHandler : MonoBehaviour {
 			if (state == 0) {
 				gameData.numBarState [1] = 1;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/twos/2-teal");
+				if (gameData.selected != null) {
+					gameData.revertSelected();
+				}
+				gameData.selected = selected;
 			} else if (state == 1) {
-				gameData.numBarState [1] = 2;
-				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/twos/2-red");
-			} else if (state == 2) {
+				gameData.selected = null;
 				gameData.numBarState [1] = 0;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/twos/2-blue");
+			} else if (state == 2) {
+				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/twos/2-red");
+				Debug.Log ("two is used");			
 			}
 			break;
 		case "three":
@@ -45,12 +106,17 @@ public class StateHandler : MonoBehaviour {
 			if (state == 0) {
 				gameData.numBarState [2] = 1;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/threes/3-teal");
+				if (gameData.selected != null) {
+					gameData.revertSelected();
+				}
+				gameData.selected = selected;
 			} else if (state == 1) {
-				gameData.numBarState [2] = 2;
-				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/threes/3-red");
-			} else if (state == 2) {
+				gameData.selected = null;
 				gameData.numBarState [2] = 0;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/threes/3-blue");
+			} else if (state == 2) {
+				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/threes/3-red");
+				Debug.Log ("three is used");			
 			}
 			break;
 		case "four":
@@ -58,12 +124,17 @@ public class StateHandler : MonoBehaviour {
 			if (state == 0) {
 				gameData.numBarState [3] = 1;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/fours/4-teal");
+				if (gameData.selected != null) {
+					gameData.revertSelected();
+				}
+				gameData.selected = selected;
 			} else if (state == 1) {
-				gameData.numBarState [3] = 2;
-				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/fours/4-red");
-			} else if (state == 2) {
+				gameData.selected = null;
 				gameData.numBarState [3] = 0;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/fours/4-blue");
+			} else if (state == 2) {
+				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/fours/4-red");
+				Debug.Log ("four is used");			
 			}
 			break;
 		case "five":
@@ -71,12 +142,17 @@ public class StateHandler : MonoBehaviour {
 			if (state == 0) {
 				gameData.numBarState [4] = 1;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/fives/5-teal");
+				if (gameData.selected != null) {
+					gameData.revertSelected();
+				}
+				gameData.selected = selected;
 			} else if (state == 1) {
-				gameData.numBarState [4] = 2;
-				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/fives/5-red");
-			} else if (state == 2) {
+				gameData.selected = null;
 				gameData.numBarState [4] = 0;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/fives/5-blue");
+			} else if (state == 2) {
+				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/fives/5-red");
+				Debug.Log ("five is used");			
 			}
 			break;
 		case "six":
@@ -84,12 +160,17 @@ public class StateHandler : MonoBehaviour {
 			if (state == 0) {
 				gameData.numBarState [5] = 1;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/sixes/6-teal");
+				if (gameData.selected != null) {
+					gameData.revertSelected();
+				}
+				gameData.selected = selected;
 			} else if (state == 1) {
-				gameData.numBarState [5] = 2;
-				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/sixes/6-red");
-			} else if (state == 2) {
+				gameData.selected = null;
 				gameData.numBarState [5] = 0;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/sixes/6-blue");
+			} else if (state == 2) {
+				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/sixes/6-red");
+				Debug.Log ("six is used");			
 			}
 			break;
 		case "seven":
@@ -97,12 +178,17 @@ public class StateHandler : MonoBehaviour {
 			if (state == 0) {
 				gameData.numBarState [6] = 1;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/sevens/7-teal");
+				if (gameData.selected != null) {
+					gameData.revertSelected();
+				}
+				gameData.selected = selected;
 			} else if (state == 1) {
-				gameData.numBarState [6] = 2;
-				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/sevens/7-red");
-			} else if (state == 2) {
+				gameData.selected = null;
 				gameData.numBarState [6] = 0;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/sevens/7-blue");
+			} else if (state == 2) {
+				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/sevens/7-red");
+				Debug.Log ("seven is used");			
 			}
 			break;
 		case "eight":
@@ -110,12 +196,17 @@ public class StateHandler : MonoBehaviour {
 			if (state == 0) {
 				gameData.numBarState [7] = 1;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/eights/8-teal");
+				if (gameData.selected != null) {
+					gameData.revertSelected();
+				}
+				gameData.selected = selected;
 			} else if (state == 1) {
-				gameData.numBarState [7] = 2;
-				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/eights/8-red");
-			} else if (state == 2) {
+				gameData.selected = null;
 				gameData.numBarState [7] = 0;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/eights/8-blue");
+			} else if (state == 2) {
+				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/eights/8-red");
+				Debug.Log ("eight is used");			
 			}
 			break;
 		case "nine":
@@ -123,16 +214,21 @@ public class StateHandler : MonoBehaviour {
 			if (state == 0) {
 				gameData.numBarState [8] = 1;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/nines/9-teal");
+				if (gameData.selected != null) {
+					gameData.revertSelected();
+				}
+				gameData.selected = selected;
 			} else if (state == 1) {
-				gameData.numBarState [8] = 2;
-				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/nines/9-red");
-			} else if (state == 2) {
+				gameData.selected = null;
 				gameData.numBarState [8] = 0;
 				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/nines/9-blue");
+			} else if (state == 2) {
+				tempSprite = Resources.Load<Sprite> ("sprites/Number Tiles/nines/9-red");
+				Debug.Log ("nine is used");			
 			}
 			break;
 		}
-		Debug.Log (tempSprite.ToString ());
+		GlobalControl.Instance.gameData = gameData;
 		return tempSprite;
 	}
 

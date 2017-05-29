@@ -54,9 +54,18 @@ public class ButtonController : MonoBehaviour
 	public void handleNumBar(int number){
 		GameObject current = EventSystem.current.currentSelectedGameObject;
 		Sprite tempSprite;
-		//StateHandler stateHandler = new StateHandler ();
-		tempSprite = StateHandler.changeNumBarState (current.name);
+		tempSprite = StateHandler.changeNumBarState (current);
 		current.GetComponent<Image>().sprite = tempSprite;
-		Debug.Log (current.name);
+		//Debug.Log (current.name);
+	}
+
+	public void handleInput(){
+		GameObject current = EventSystem.current.currentSelectedGameObject;
+		if (current.GetComponent<Image> ().sprite.name == "blank") {
+			Sprite tempSprite;
+			tempSprite = StateHandler.changeInputState (current);
+			current.GetComponent<Image> ().sprite = tempSprite;
+		}
+		//Debug.Log (current.name);
 	}
 }

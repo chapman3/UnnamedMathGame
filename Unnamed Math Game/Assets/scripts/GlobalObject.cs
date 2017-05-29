@@ -15,12 +15,6 @@ public class GlobalObject {
         hardest = 4
     }
 
-	public enum NumberBarStates{
-		unused = 0,
-		selected = 1,
-		used = 2
-	}
-
     const int GAMEBOARD_HEIGHT = 3;
     const int GAMEBOARD_WIDTH = 3;
 
@@ -33,6 +27,7 @@ public class GlobalObject {
 	public int[] gameboardNumState;
 	public int[] numBarState;
     Difficulty difficulty;
+	public GameObject selected;
 
     //constructor
     public GlobalObject(){
@@ -46,7 +41,7 @@ public class GlobalObject {
         answers = GenerateAnswers();
 		// set tile states
 		setNumBarStates();
-
+		selected = null;
 
     }
 
@@ -88,6 +83,7 @@ public class GlobalObject {
 	private void setGameboardNumStates(){
 		gameboardNumState = new int[9]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 	}
+		
 
     //class methods
 
@@ -95,6 +91,89 @@ public class GlobalObject {
     /// Randomizes a 2D array of numbers (1-9)
     /// </summary>
     /// <returns>The 2D number array</returns>
+
+	public void revertSelected(){
+		switch (selected.name) {
+		case "one":
+			selected.GetComponent<Image> ().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/ones/1-blue");
+			this.numBarState [0] = 0;
+			break;
+		case "two":
+			selected.GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/twos/2-blue");			
+			this.numBarState [1] = 0;
+			break;
+		case "three":
+			selected.GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/threes/3-blue");
+			this.numBarState [2] = 0;
+			break;
+		case "four":
+			selected.GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/fours/4-blue");
+			this.numBarState [3] = 0;
+			break;
+		case "five":
+			selected.GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/fives/5-blue");
+			this.numBarState [4] = 0;
+			break;
+		case "six":
+			selected.GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/sixes/6-blue");
+			this.numBarState [5] = 0;
+			break;
+		case "seven":
+			selected.GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/sevens/7-blue");
+			this.numBarState [6] = 0;
+			break;
+		case "eight":
+			selected.GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/eights/8-blue");
+			this.numBarState [7] = 0;
+			break;
+		case "nine":
+			selected.GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/nines/9-blue");
+			this.numBarState [8] = 0;
+			break;
+		}
+	}
+
+	public void setUsed(string used){
+		switch (used) {
+		case "one":
+			GameObject.Find("one").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/ones/1-red");
+			this.numBarState [0] = 2;
+			break;
+		case "two":
+			GameObject.Find("two").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/twos/2-red");			
+			this.numBarState [1] = 2;
+			break;
+		case "three":
+			GameObject.Find("three").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/threes/3-red");
+			this.numBarState [2] = 2;
+			break;
+		case "four":
+			GameObject.Find("four").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/fours/4-red");
+			this.numBarState [3] = 2;
+			break;
+		case "five":
+			GameObject.Find("five").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/fives/5-red");
+			this.numBarState [4] = 2;
+			break;
+		case "six":
+			GameObject.Find("six").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/sixes/6-red");
+			this.numBarState [5] = 2;
+			break;
+		case "seven":
+			GameObject.Find("seven").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/sevens/7-red");
+			this.numBarState [6] = 2;
+			break;
+		case "eight":
+			GameObject.Find("eight").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/eights/8-red");
+			this.numBarState [7] = 2;
+			break;
+		case "nine":
+			GameObject.Find("nine").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/nines/9-red");
+			this.numBarState [8] = 2;
+			break;
+		}
+	}
+
     private int[,] RandomizeNumbers()
     {
         int[,] numbers = new int[GAMEBOARD_HEIGHT, GAMEBOARD_WIDTH];
