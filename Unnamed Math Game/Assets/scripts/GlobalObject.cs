@@ -26,6 +26,7 @@ public class GlobalObject {
     public int[] answers;
 	public int[] gameboardNumState;
 	public int[] numBarState;
+	public int[] solution;
     Difficulty difficulty;
 	public GameObject selected;
 
@@ -42,15 +43,17 @@ public class GlobalObject {
 		// set tile states
 		setNumBarStates();
 		selected = null;
+		// set user solution
+		setSolution();
 
     }
 
     /// <summary>
     /// Sets the difficulty setting selected
     /// </summary>
-    private void setDifficulty()
+	public void setDifficulty()
     {
-        string text = GameObject.Find("DifficultyObj").GetComponent<Text>().text;
+        string text = ButtonController.tempDiff;
         Debug.Log("Difficulty:" + text);
         switch (text)
         {
@@ -82,6 +85,10 @@ public class GlobalObject {
 	/// </summary>
 	private void setGameboardNumStates(){
 		gameboardNumState = new int[9]{ 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+	}
+
+	private void setSolution(){
+		solution = new int[9]{ 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 };
 	}
 		
 

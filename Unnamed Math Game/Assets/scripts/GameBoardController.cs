@@ -16,7 +16,7 @@ public class GameBoardController : MonoBehaviour {
 	const int GAMEBOARD_WIDTH = 3;
 
 	public Difficulty difficulty;
-	public GameObject answersObj, operandsObj, inputFieldsObj;
+	public GameObject answersObj, operandsObj;
 	[Range(0,2)]
 	public int freeAnswers;
 
@@ -35,11 +35,10 @@ public class GameBoardController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        GameObject.Find("DifficultyObj").GetComponent<Text>().text = ButtonController.tempDiff;
         gameData = GlobalControl.Instance.gameData;
 		setAnswers (gameData.answers);
 		setOperands (gameData.operands);
-		GenerateHints (gameData.gameboardNums);
+		//GenerateHints (gameData.gameboardNums);
 		DumpAnswers (gameData.gameboardNums);
 		DumpOperands (gameData.operands);
 		GlobalControl.Instance.gameData = gameData;
@@ -73,8 +72,23 @@ public class GameBoardController : MonoBehaviour {
 		int operandsLength = operandsObj.transform.childCount;
 
 		for(int i = 0; i < operandsLength; i++) {
-			Text operandText = operandsObj.transform.GetChild (i).GetComponent<Text>();
-			operandText.text = operands [i].ToString ();
+			GameObject operand = operandsObj.transform.GetChild (i).gameObject;
+			Sprite temp = null;
+			switch (operands [i].ToString ()) {
+			case "+":
+				temp = Resources.Load<Sprite> ("sprites/Operand Tiles/plus");
+				break;
+			case "-":
+				temp = Resources.Load<Sprite> ("sprites/Operand Tiles/minus");
+				break;
+			case "*":
+				temp = Resources.Load<Sprite> ("sprites/Operand Tiles/mult");
+				break;
+			case "/":
+				temp = Resources.Load<Sprite> ("sprites/Operand Tiles/div");
+				break;
+			}
+			operand.GetComponent<Image> ().sprite = temp;
 		}
 	}
 
@@ -82,14 +96,14 @@ public class GameBoardController : MonoBehaviour {
 	/// <summary>
 	/// Gives the user free answers based on the setting
 	/// </summary>
-	void GenerateHints(int[,] gameboardNums) {
+	/*void GenerateHints(int[,] gameboardNums) {
 		for (int i = 0; i < freeAnswers; i++) {
 			bool blankTile = true;
 
 			while (blankTile) {
 				int row = Random.Range (0, 3);
 				int column = Random.Range (0, 3);
-				int answerObjPosition = row * 3 + column;
+				//int answerObjPosition = row * 3 + column;
 
 				InputField answerTile = inputFieldsObj.transform.GetChild (answerObjPosition).GetComponent<InputField> ();
 
@@ -98,9 +112,10 @@ public class GameBoardController : MonoBehaviour {
 					answerTile.enabled = false;
 					blankTile = false;
 				}
+
 			}
 		}
-	}
+	}*/
 
 	/// <summary>
 	/// Dumps the answers into the console for debugging
