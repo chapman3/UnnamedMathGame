@@ -13,43 +13,58 @@ public class StateHandler : MonoBehaviour {
 			case "one":
 				gameData.setUsed (gameData.selected.name);
 				gameData.selected = null;
+				gameData.setSolution (1, selected.name);
 				return (Resources.Load<Sprite> ("sprites/Number Tiles/ones/1-blue"));
 			case "two":
 				gameData.setUsed (gameData.selected.name);
 				gameData.selected = null;
+				gameData.setSolution (2, selected.name);
 				return (Resources.Load<Sprite> ("sprites/Number Tiles/twos/2-blue"));			
 			case "three":
 				gameData.setUsed (gameData.selected.name);
 				gameData.selected = null;
+				gameData.setSolution (3, selected.name);
 				return (Resources.Load<Sprite> ("sprites/Number Tiles/threes/3-blue"));
 			case "four":
 				gameData.setUsed (gameData.selected.name);
 				gameData.selected = null;
+				gameData.setSolution (4, selected.name);
 				return (Resources.Load<Sprite> ("sprites/Number Tiles/fours/4-blue"));
 			case "five":
 				gameData.setUsed (gameData.selected.name);
 				gameData.selected = null;
+				gameData.setSolution (5, selected.name);
 				return (Resources.Load<Sprite> ("sprites/Number Tiles/fives/5-blue"));
 			case "six":
 				gameData.setUsed (gameData.selected.name);
 				gameData.selected = null;
+				gameData.setSolution (6, selected.name);
 				return (Resources.Load<Sprite> ("sprites/Number Tiles/sixes/6-blue"));
 			case "seven":
 				gameData.setUsed (gameData.selected.name);
 				gameData.selected = null;
+				gameData.setSolution (7, selected.name);
 				return (Resources.Load<Sprite> ("sprites/Number Tiles/sevens/7-blue"));
 			case "eight":
 				gameData.setUsed (gameData.selected.name);
 				gameData.selected = null;
+				gameData.setSolution (8, selected.name);
 				return (Resources.Load<Sprite> ("sprites/Number Tiles/eights/8-blue"));
 			case "nine":
 				gameData.setUsed (gameData.selected.name);
 				gameData.selected = null;
+				gameData.setSolution (9, selected.name);
 				return (Resources.Load<Sprite> ("sprites/Number Tiles/nines/9-blue"));
 			}
 		}
 		GlobalControl.Instance.gameData = gameData;
 		return (Resources.Load<Sprite> ("sprites/Number Tiles/blank"));
+	}
+
+	public static void inputStateToNull(GameObject selected){
+		GlobalObject gameData = GlobalControl.Instance.gameData;
+		gameData.revertInput (selected.name);
+		GlobalControl.Instance.gameData = gameData;
 	}
 
 	public static Sprite changeNumBarState(GameObject selected){

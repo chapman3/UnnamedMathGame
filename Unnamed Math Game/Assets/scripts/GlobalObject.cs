@@ -99,6 +99,111 @@ public class GlobalObject {
     /// </summary>
     /// <returns>The 2D number array</returns>
 
+	public void setSolution(int number, string entry){
+		switch (entry) {
+		case "row1col1":
+			solution [0] = number;
+			break;
+		case "row1col2":
+			solution [1] = number;
+			break;
+		case "row1col3":
+			solution [2] = number;
+			break;
+		case "row2col1":
+			solution [3] = number;
+			break;
+		case "row2col2":
+			solution [4] = number;
+			break;
+		case "row2col3":
+			solution [5] = number;
+			break;
+		case "row3col1":
+			solution [6] = number;
+			break;
+		case "row3col2":
+			solution [7] = number;
+			break;
+		case "row3col3":
+			solution [8] = number;
+			break;
+		}
+	}
+
+	public void revertInput(string location){
+		switch (location) {
+		case "row1col1":
+			revertNumBar(solution [0]);
+			break;
+		case "row1col2":
+			revertNumBar(solution [1]);
+			break;
+		case "row1col3":
+			revertNumBar(solution [2]);
+			break;
+		case "row2col1":
+			revertNumBar(solution [3]);
+			break;
+		case "row2col2":
+			revertNumBar(solution [4]);
+			break;
+		case "row2col3":
+			revertNumBar(solution [5]);
+			break;
+		case "row3col1":
+			revertNumBar(solution [6]);
+			break;
+		case "row3col2":
+			revertNumBar(solution [7]);
+			break;
+		case "row3col3":
+			revertNumBar(solution [8]);
+			break;
+		}
+	}
+
+	public void revertNumBar(int number){
+		switch (number) {
+		case 1:
+			GameObject.Find("one").GetComponent<Image> ().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/ones/1-blue");
+			this.numBarState [0] = 0;
+			break;
+		case 2:
+			GameObject.Find("two").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/twos/2-blue");			
+			this.numBarState [1] = 0;
+			break;
+		case 3:
+			GameObject.Find("three").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/threes/3-blue");
+			this.numBarState [2] = 0;
+			break;
+		case 4:
+			GameObject.Find("four").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/fours/4-blue");
+			this.numBarState [3] = 0;
+			break;
+		case 5:
+			GameObject.Find("five").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/fives/5-blue");
+			this.numBarState [4] = 0;
+			break;
+		case 6:
+			GameObject.Find("six").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/sixes/6-blue");
+			this.numBarState [5] = 0;
+			break;
+		case 7:
+			GameObject.Find("seven").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/sevens/7-blue");
+			this.numBarState [6] = 0;
+			break;
+		case 8:
+			GameObject.Find("eight").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/eights/8-blue");
+			this.numBarState [7] = 0;
+			break;
+		case 9:
+			GameObject.Find("nine").GetComponent<Image>().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/nines/9-blue");
+			this.numBarState [8] = 0;
+			break;
+		}
+	}
+
 	public void revertSelected(){
 		switch (selected.name) {
 		case "one":

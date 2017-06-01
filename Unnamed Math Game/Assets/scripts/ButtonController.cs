@@ -36,11 +36,12 @@ public class ButtonController : MonoBehaviour
         Scene thisScene = SceneManager.GetActiveScene();
         if (thisScene.name == "Difficulty")
         {
-            if(scene != "Title")
-            {
+			if (scene != "Title") {
 				tempDiff = scene;
-                SceneManager.LoadScene("NewGameBoard");
-            }
+				SceneManager.LoadScene ("NewGameBoard");
+			} else {
+				SceneManager.LoadScene (scene);
+			}
         }
         else
         {
@@ -62,7 +63,9 @@ public class ButtonController : MonoBehaviour
 			Sprite tempSprite;
 			tempSprite = StateHandler.changeInputState (current);
 			current.GetComponent<Image> ().sprite = tempSprite;
+		} else {
+			StateHandler.inputStateToNull (current);
+			current.GetComponent<Image> ().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/blank");
 		}
-		//Debug.Log (current.name);
 	}
 }
