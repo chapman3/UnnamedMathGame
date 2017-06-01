@@ -117,6 +117,20 @@ public class GameBoardController : MonoBehaviour {
 		}
 	}*/
 
+	public static void checkSolution(){
+		GlobalObject gameData = GlobalControl.Instance.gameData;
+		int[] answers = gameData.GenerateAnswers (gameData.solution);
+		Debug.Log (answers[0] + " " + answers[1] + " " + answers[2] + " " + answers[3] + " " + answers[4] + " " + answers[5]);
+		Debug.Log (gameData.answers[0] + " " + gameData.answers[1] + " " + gameData.answers[2] + " " + gameData.answers[3] + " " + gameData.answers[4] + " " + gameData.answers[5]);
+		if (answers.ToString() == gameData.answers.ToString()) {
+			Debug.Log ("Solution Found");
+			GameObject.Find ("Status").GetComponent<Text>().text = "Solved, press quit to return.";
+		} else {
+			Debug.Log ("Solution not found");
+			GameObject.Find ("Status").GetComponent<Text>().text = "Not solved";
+		}
+	}
+
 	/// <summary>
 	/// Dumps the answers into the console for debugging
 	/// </summary>

@@ -26,7 +26,7 @@ public class GlobalObject {
     public int[] answers;
 	public int[] gameboardNumState;
 	public int[] numBarState;
-	public int[] solution;
+	public int[,] solution;
     Difficulty difficulty;
 	public GameObject selected;
 
@@ -39,7 +39,7 @@ public class GlobalObject {
         // generate operands
         operands = RandomizeOperands();
         // generate answers
-        answers = GenerateAnswers();
+        answers = GenerateAnswers(gameboardNums);
 		// set tile states
 		setNumBarStates();
 		selected = null;
@@ -88,7 +88,7 @@ public class GlobalObject {
 	}
 
 	private void setSolution(){
-		solution = new int[9]{ 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 };
+		solution = new int[GAMEBOARD_HEIGHT,GAMEBOARD_WIDTH];
 	}
 		
 
@@ -102,31 +102,31 @@ public class GlobalObject {
 	public void setSolution(int number, string entry){
 		switch (entry) {
 		case "row1col1":
-			solution [0] = number;
+			solution [0,0] = number;
 			break;
 		case "row1col2":
-			solution [1] = number;
+			solution [0,1] = number;
 			break;
 		case "row1col3":
-			solution [2] = number;
+			solution [0,2] = number;
 			break;
 		case "row2col1":
-			solution [3] = number;
+			solution [1,0] = number;
 			break;
 		case "row2col2":
-			solution [4] = number;
+			solution [1,1] = number;
 			break;
 		case "row2col3":
-			solution [5] = number;
+			solution [1,2] = number;
 			break;
 		case "row3col1":
-			solution [6] = number;
+			solution [2,0] = number;
 			break;
 		case "row3col2":
-			solution [7] = number;
+			solution [2,1] = number;
 			break;
 		case "row3col3":
-			solution [8] = number;
+			solution [2,2] = number;
 			break;
 		}
 	}
@@ -134,31 +134,31 @@ public class GlobalObject {
 	public void revertInput(string location){
 		switch (location) {
 		case "row1col1":
-			revertNumBar(solution [0]);
+			revertNumBar(solution [0,0]);
 			break;
 		case "row1col2":
-			revertNumBar(solution [1]);
+			revertNumBar(solution [0,1]);
 			break;
 		case "row1col3":
-			revertNumBar(solution [2]);
+			revertNumBar(solution [0,2]);
 			break;
 		case "row2col1":
-			revertNumBar(solution [3]);
+			revertNumBar(solution [1,0]);
 			break;
 		case "row2col2":
-			revertNumBar(solution [4]);
+			revertNumBar(solution [1,1]);
 			break;
 		case "row2col3":
-			revertNumBar(solution [5]);
+			revertNumBar(solution [1,2]);
 			break;
 		case "row3col1":
-			revertNumBar(solution [6]);
+			revertNumBar(solution [2,0]);
 			break;
 		case "row3col2":
-			revertNumBar(solution [7]);
+			revertNumBar(solution [2,1]);
 			break;
 		case "row3col3":
-			revertNumBar(solution [8]);
+			revertNumBar(solution [2,2]);
 			break;
 		}
 	}
@@ -340,16 +340,16 @@ public class GlobalObject {
     /// </summary>
     /// <returns>The answer array</returns>
     /// 
-    private int[] GenerateAnswers()
+	public int[] GenerateAnswers(int[,] boardNums)
     {
         int[] tempAnswers = new int[6];
         for(int i=0; i<3; i++)
         {
-            tempAnswers[i] = (int)GenerateRowAnswer(i);
+            tempAnswers[i] = (int)GenerateRowAnswer(i, boardNums);
         }
         for(int j=3; j<6; j++)
         {
-            tempAnswers[j] = (int)GenerateColumnAnswer(j - 3);
+            tempAnswers[j] = (int)GenerateColumnAnswer(j - 3, boardNums);
         }
         return tempAnswers;
     }
@@ -362,7 +362,7 @@ public class GlobalObject {
     /// <returns>The row answer.</returns>
     /// <param name="RowIndex">The row to calculate</param> 
     /// 
-    private double GenerateRowAnswer(int RowIndex)
+	private double GenerateRowAnswer(int RowIndex, int[,] boardNums)
     {
         double answer;
 
@@ -372,11 +372,11 @@ public class GlobalObject {
 
         //Generates the expression string for the row
         string expressionString = string.Format("{0}{1}{2}{3}{4}",
-                                gameboardNums[RowIndex, 0],
+                                boardNums[RowIndex, 0],
                                 operands[operandsStartingIndex],
-                                gameboardNums[RowIndex, 1],
+                                boardNums[RowIndex, 1],
                                 operands[operandsStartingIndex + 1],
-                                gameboardNums[RowIndex, 2]);
+                                boardNums[RowIndex, 2]);
 
 
         //Expression object for the string
@@ -394,7 +394,7 @@ public class GlobalObject {
     /// </summary>
     /// <returns>The column answer.</returns>
     /// <param name="ColumnIndex">The column to calculate</param>
-    private double GenerateColumnAnswer(int ColumnIndex)
+	private double GenerateColumnAnswer(int ColumnIndex, int[,] boardNums)
     {
         double answer;
 
@@ -403,11 +403,11 @@ public class GlobalObject {
 
         //Generates the expression string for the column
         string expressionString = string.Format("{0}{1}{2}{3}{4}",
-                                      gameboardNums[0, ColumnIndex],
+                                      boardNums[0, ColumnIndex],
                                       operands[operandsStartingIndex],
-                                      gameboardNums[1, ColumnIndex],
+                                      boardNums[1, ColumnIndex],
                                       operands[operandsStartingIndex + 5],
-                                      gameboardNums[2, ColumnIndex]
+                                      boardNums[2, ColumnIndex]
                                   );
 
         //Expression object for the string

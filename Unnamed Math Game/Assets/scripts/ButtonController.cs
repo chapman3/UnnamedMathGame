@@ -68,4 +68,8 @@ public class ButtonController : MonoBehaviour
 			current.GetComponent<Image> ().sprite = Resources.Load<Sprite> ("sprites/Number Tiles/blank");
 		}
 	}
+
+	public void handleSubmit(){
+		GameBoardController.checkSolution ();
+	}
 }
